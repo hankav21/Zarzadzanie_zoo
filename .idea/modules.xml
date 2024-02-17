@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/aplikacja_zoo/aplikacja_zoo.iml" filepath="$PROJECT_DIR$/aplikacja_zoo/aplikacja_zoo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zarzadzanie_zoo.iml" filepath="$PROJECT_DIR$/zarzadzanie_zoo.iml" />
+    </modules>
+  </component>
+</project>

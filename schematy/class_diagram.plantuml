@@ -1,0 +1,51 @@
+@startuml
+class "Magazyn" as magazyn
+class "Jedzenie" as jedzenie{
+nazwa
+}
+class "Jadłospis" as jadlospis {
+ilosc
+}
+class "Zwierze" as zwierze {
+wiek
+waga
+jedz()
+}
+class "Gatunek" as gatunek {
+wymagania gatunkowe
+}
+class "Rezydnt Zoo" as rezydent {
+id
+uczulenia[]
+}
+class "Wybieg" as wybieg{
+pojemność
+}
+class "Zarzadca" as zarzadca{
+zamów_jedzenie()
+przydziel_opiekuna()
+spr_stan_magazynu()
+ustal_diete()
+}
+class "Osoba" as osoba {
+id
+imie
+nazwisko
+}
+class "Opiekun" as opiekun {
+nakarm()
+}
+
+
+magazyn o-- jedzenie
+jedzenie --o jadlospis
+rezydent --o jadlospis
+rezydent --|> gatunek
+gatunek --|> zwierze
+rezydent --o wybieg
+wybieg o--o opiekun
+opiekun --|> osoba
+zarzadca --|> osoba
+
+
+@enduml

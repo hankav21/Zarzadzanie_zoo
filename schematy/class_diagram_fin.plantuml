@@ -1,0 +1,347 @@
+@startuml
+interface DostepBazaDanych {
+    +dodaj_nowy_gatunek(gatunek: Gatunek): void
+    +czy_gatunek_o_tej_nazwie_na_liscie(szukanyGatunek: String, listaGatunkow: ArrayList<Gatunek>): boolean
+    +zwroc_podany_gatunek(identyfikacja: String): Gatunek
+    +dodaj_nowy_rodaj_jedzenia(nazwa: String): void
+    +dodaj_nowy_rodaj_jedzenia(jedzenie: Jedzenie): void
+    +znajdz_jedzenie(identyfikacja: String): Jedzenie
+    +czy_istnieje_jedzenie_o_tej_nazwie_na_liscie(szukaneJedzenie: String, listaJedzenia: ArrayList<Jedzenie>): boolean
+    +dodaj_nowy_wybieg(wybieg: Wybieg): void
+    +czy_istnieje_taki_wybieg_na_liscie(nmWybiegu: String, listaWybiegow: ArrayList<Wybieg>): boolean
+    +przyznaj_opiekuna(opiekun: Opiekun, nmWybiegu: String): void
+    +dodaj_zwierze_do_wybiegu(zwierze: Zwierze, nmWybiegu: String): void
+    +dodaj_opiekuna(opiekun: Opiekun): void
+}
+
+interface ObslugaBazyDanych {
+    +dodaj_nowy_gatunek(): void
+    +dodaj_nowy_rodaj_jedzenia(): void
+    +dodaj_nowy_wybieg(): void
+    +wyswietl_zwierzeta_z_wybiegu(): void
+    +sprawdz_pojemnosc_wybiegu(): void
+    +sprawdz_pojemnosc_wybiegow(): void
+    +wyswietl_opiekunow_wybiegu(): void
+    +przyznaj_opiekuna(): void
+    +dodaj_zwierze_do_wybiegu(): void
+    +dodaj_opiekuna(): void
+}
+
+class BazaDanych {
+    -instancja: BazaDanych
+    -gatunki_bd: ArrayList<Gatunek>
+    -lista_dostepnego_jedzenia: ArrayList<Jedzenie>
+    -wybiegi_bd: ArrayList<Wybieg>
+    -opiekunowie: ArrayList<Opiekun>
+    -zwierzeta: ArrayList<Zwierze>
+    -zarzadca: Zarzadca
+    -magazyn: Magazyn
+
+    +pobierzInstancje(): BazaDanych
+    +dodaj_nowy_gatunek(gatunek: Gatunek): void
+    +czy_gatunek_o_tej_nazwie_na_liscie(szukanyGatunek: String, listaGatunkow: ArrayList<Gatunek>): boolean
+    +zwroc_podany_gatunek(identyfikacja: String): Gatunek
+    +dodaj_nowy_rodaj_jedzenia(nazwa: String): void
+    +dodaj_nowy_rodaj_jedzenia(jedzenie: Jedzenie): void
+    +znajdz_jedzenie(identyfikacja: String): Jedzenie
+    +czy_istnieje_jedzenie_o_tej_nazwie_na_liscie(szukaneJedzenie: String, listaJedzenia: ArrayList<Jedzenie>): boolean
+    +dodaj_nowy_wybieg(wybieg: Wybieg): void
+    +czy_istnieje_taki_wybieg_na_liscie(nmWybiegu: String, listaWybiegow: ArrayList<Wybieg>): boolean
+    +zwroc_dany_wybieg(nmWybiegu: String): Wybieg
+    +przyznaj_opiekuna(opiekun: Opiekun, nmWybiegu: String): void
+    +dodaj_zwierze_do_wybiegu(zwierze: Zwierze, nmWybiegu: String): void
+    +dodaj_opiekuna(opiekun: Opiekun): void
+    +zuzycie_jedzenia_na_dzien_dla_zoo(): Dieta
+    +zuzycie_jedzenia_dla_x_dni_na_zoo(x: Integer): Dieta
+    +getGatunki_bd(): ArrayList<Gatunek>
+    +setGatunki_bd(gatunki_bd: ArrayList<Gatunek>): void
+    +getLista_dostepnego_jedzenia(): ArrayList<Jedzenie>
+    +setLista_dostepnego_jedzenia(lista_dostepnego_jedzenia: ArrayList<Jedzenie>): void
+    +getWybiegi_bd(): ArrayList<Wybieg>
+    +setWybiegi_bd(wybiegi_bd: ArrayList<Wybieg>): void
+    +getOpiekunowie(): ArrayList<Opiekun>
+    +setOpiekunowie(opiekunowie: ArrayList<Opiekun>): void
+}
+
+
+class Dieta {
+  -produkt_gramy: HashMap<Jedzenie, Integer>
+
+  +Dieta()
+  +Dieta(dieta: Dieta)
+  +getProdukt_gramy(): HashMap<Jedzenie, Integer>
+  +setProdukt_gramy(produkt_gramy: HashMap<Jedzenie, Integer>): void
+  +dodaj_pozycje(jedzenie: Jedzenie, gramy: Integer): void
+  +usun_pozycje(jedzenie: Jedzenie): void
+  +zmien_liczbe_gramow(jedzenie: Jedzenie, gramy: Integer): void
+  +dodaj_liczbe_gramow(jedzenie: Jedzenie, gramy: Integer): void
+  +dostosuj_diete_do_wagi(dieta: Dieta, kg_zwierzecia: Integer): Dieta
+  +zsumujDietyWszystkichZwierzat(zwierzeta: ArrayList<Zwierze>): Dieta
+  +zsumujDiety(dieta: Dieta): void
+  +zwroc_diete_zwiekszona_o_liczbe_dni(dieta: Dieta, liczba_dni: Integer): Dieta
+  +czy_jest_to_jedzenie_w_diecie(jedzenie: Jedzenie): boolean
+  +ile_jest_tego_jedzenia_w_diecie(jedzenie: Jedzenie): Integer
+  +toString(): String
+  +equals(o: Object): boolean
+  +hashCode(): int
+}
+
+
+class Gatunek {
+  -id: String
+  -nazwa: String
+  -dieta_na_kg_osobnika: Dieta
+  -metrow_na_osobnika: Integer
+
+  +Gatunek(id: String, nazwa: String, dieta_na_kg_osobnika: Dieta, metrow_na_osobnika: Integer)
+  +getId(): String
+  +setId(id: String): void
+  +getNazwa(): String
+  +setNazwa(nazwa: String): void
+  +getDieta_na_kg_osobnika(): Dieta
+  +setDieta_na_kg_osobnika(dieta_na_kg_osobnika: Dieta): void
+  +getMetrow_na_osobnika(): Integer
+  +setMetrow_na_osobnika(metrow_na_osobnika: Integer): void
+  +equals(o: Object): boolean
+  +hashCode(): int
+  +toString(): String
+}
+
+
+class Jedzenie {
+  -id: String
+  -nazwa: String
+
+  +Jedzenie(id: String, nazwa: String)
+  +getId(): String
+  +setId(id: String): void
+  +getNazwa(): String
+  +setNazwa(nazwa: String): void
+  +equals(o: Object): boolean
+  +hashCode(): int
+  +toString(): String
+}
+
+
+interface ObslugaMagazynu {
+  +wyswietlWszystko(magazyn: Magazyn): void
+  +wyswietl_ilosc_w_magazynie(magazyn: Magazyn, jedzenie: Jedzenie): void
+  +wyswietl_ilosc_w_magazynie(magazyn: Magazyn, jedzenie: String): void
+  +wyswietl_ilosc_w_magazynie_na_diete(magazyn: Magazyn, dieta: Dieta): void
+}
+
+interface DostepMagazyn {
+  +dodaj_do_magazynu(jedzenie: Jedzenie, ilosc: Integer): void
+  +zwroc_ilosc_paszy(jedzenie: String): Integer
+  +zwroc_ilosc_paszy(jedzenie: Jedzenie): Integer
+}
+
+class Magazyn implements DostepMagazyn{
+  -pasza_ilosc: HashMap<Jedzenie, Integer>
+
+  +Magazyn()
+  +dodaj_do_magazynu(jedzenie: Jedzenie, ilosc: Integer): void
+  +zwroc_ilosc_paszy(jedzenie: String): Integer
+  +pobierz_z_magazynu(dieta: Dieta): void
+  +czy_jest_wystarczajaca_ilosc_jedzenia_w_magazynie(dieta: Dieta): boolean
+  +zwroc_ilosc_paszy(jedzenie: Jedzenie): Integer
+}
+
+
+class NoweId {
++ przyznajId(): String
+}
+
+class ObslugaBazyDanychKonsolowo implements ObslugaBazyDanych{
+    + wyswietl_liste_gatunkow(): void
+    + dodaj_nowy_gatunek(): void
+    + dodaj_nowy_rodaj_jedzenia(): void
+    + wyswietl_liste_rodzajow_jedzenia(): void
+    + wyswietl_liste_wybiegow(): void
+    + dodaj_nowy_wybieg(): void
+    + wyswietl_zwierzeta_z_wybiegu(): void
+    + sprawdz_pojemnosc_wybiegu(): void
+    + sprawdz_pojemnosc_wybiegow(): void
+    + wyswietl_opiekunow_wybiegu(): void
+    + przyznaj_opiekuna(): void
+    + wyswietl_wszytkich_opiekunow(): void
+    + wyswietl_wszystkich_opiekunow_wybiegu(): void
+    + dodaj_opiekuna(): void
+    + dodaj_zwierze_do_systemu(): void
+    + wyswietl_laczne_zzycie_paszy_na_x_dni(): void
+}
+
+
+class ObslugaMagazynuKonsolowo implements ObslugaMagazynu{
+    + wyswietlWszystko(magazyn: Magazyn): void
+    + wyswietl_ilosc_w_magazynie(magazyn: Magazyn, jedzenie: Jedzenie): void
+    + wyswietl_ilosc_w_magazynie(magazyn: Magazyn, jedzenie: String): void
+    + wyswietl_ilosc_w_magazynie_na_diete(magazyn: Magazyn, dieta: Dieta): void
+    + wyswietl_na_ile_dni_starczy_kazdego_jedzenia(magazyn: Magazyn): void
+    + dodaj_do_magazynu(): void
+    + wyswietl_dostepne_rodzaje_jedzenia(magazyn: Magazyn): void
+}
+
+
+class Opiekun extends Osoba{
+    - imie: String
+    - nazwisko: String
+    - id: String
+
+    + Opiekun(imie: String, nazwisko: String, id: String)
+    + zatwierdz_pobranie_jedzenia(): void
+    + zatwierdz_nakarmienie(): void
+    + pobierz_jedzenie_z_Magazynu(): boolean
+    + zwrocSwojeWybiegi(): ArrayList<Wybieg>
+    + toString(): String
+    + equals(o: Object): boolean
+}
+
+
+class Dieta {
+    -produkt_gramy: HashMap<Jedzenie, Integer>
+
+    +Dieta()
+    +Dieta(dieta: Dieta)
+    +getProdukt_gramy(): HashMap<Jedzenie, Integer>
+    +setProdukt_gramy(produkt_gramy: HashMap<Jedzenie, Integer>): void
+    +dodaj_pozycje(jedzenie: Jedzenie, gramy: Integer): void
+    +usun_pozycje(jedzenie: Jedzenie): void
+    +zmien_liczbe_gramow(jedzenie: Jedzenie, gramy: Integer): void
+    +dodaj_liczbe_gramow(jedzenie: Jedzenie, gramy: Integer): void
+
+    +dostosuj_diete_do_wagi(dieta: Dieta, kg_zwierzecia: Integer): Dieta
+    +zsumujDietyWszystkichZwierzat(zwierzeta: ArrayList<Zwierze>): Dieta
+    +zsumujDiety(dieta: Dieta): void
+    +zwroc_diete_zwiekszona_o_liczbe_dni(dieta: Dieta, liczba_dni: Integer): Dieta
+    +czy_jest_to_jedzenie_w_diecie(jedzenie: Jedzenie): boolean
+    +ile_jest_tego_jedzenia_w_diecie(jedzenie: Jedzenie): Integer
+
+    +toString(): String
+    +equals(o: Object): boolean
+    +hashCode(): int
+}
+
+class Zwierze {
+    - gatunek: Gatunek
+    - id: String
+    - imie: String
+    - obecna_dieta: Dieta
+    - waga: Integer
+    - numer_wybiegu: String
+
+    + Zwierze(gatunek: Gatunek, id: String, imie: String, waga: Integer, numer_wybiegu: String)
+    + getGatunek(): Gatunek
+    + setGatunek(gatunek: Gatunek): void
+    + getId(): String
+    + setId(id: String): void
+    + getImie(): String
+    + setImie(imie: String): void
+    + getObecna_dieta(): Dieta
+    + setObecna_dieta(obecna_dieta: Dieta): void
+    + getWaga(): Integer
+    + setWaga(waga: Integer): void
+    + getNumer_wybiegu(): String
+    + setNumer_wybiegu(numer_wybiegu: String): void
+    + equals(o: Object): boolean
+    + hashCode(): int
+    + toString(): String
+}
+
+
+class Zarzadca  extends Osoba implements DostepBazaDanych{
+    - imie: String
+    - nazwisko: String
+    - id: String
+
+    + Zarzadca(imie: String, nazwisko: String, id: String)
+    + zamow_jedzenie(zamowienie: Dieta): void
+    + przyjmij_zamowienie_do_magazynu(zamowienie: Dieta, magazyn: Magazyn): void
+    + sprawdz_stan_magazynu(magazyn: Magazyn): void
+    + sprawdz_stan_magazynu(magazyn: Magazyn, jedzenie: Jedzenie): void
+    + sprawdz_stan_magazynu(magazyn: Magazyn, jedzenie: String): void
+    + sprawdz_stan_magazynu(magazyn: Magazyn, dieta: Dieta): void
+    + przyznaj_opiekuna(opiekun: Opiekun, numer_wybiegu: String): void
+    + dodaj_zwierze_do_wybiegu(zwierze: Zwierze, nmWybiegu: String): void
+    + dodaj_opiekuna(opiekun: Opiekun): void
+    + wprowadz_zwierze_do_systemu(zwierze: Zwierze, nmWybiegu: String): void
+    + dodaj_nowy_gatunek(gatunek: Gatunek): void
+    + czy_gatunek_o_tej_nazwie_na_liscie(szukanyGatunek: String, listaGatunkow: ArrayList<Gatunek>): boolean
+    + zwroc_podany_gatunek(identyfikacja: String): Gatunek
+    + dodaj_nowy_rodaj_jedzenia(nazwa: String): void
+    + dodaj_nowy_rodaj_jedzenia(jedzenie: Jedzenie): void
+    + znajdz_jedzenie(identyfikacja: String): Jedzenie
+    + czy_istnieje_jedzenie_o_tej_nazwie_na_liscie(szukaneJedzenie: String, listaJedzenia: ArrayList<Jedzenie>): boolean
+    + dodaj_nowy_wybieg(wybieg: Wybieg): void
+    + czy_istnieje_taki_wybieg_na_liscie(nmWybiegu: String, listaWybiegow: ArrayList<Wybieg>): boolean
+    + wyswietl_dostepne_rodzaje_jedzenia(magazyn: Magazyn): void
+}
+
+class Wybieg {
+    - numer: String
+    - wielkosc: Integer
+    - zwierzeta: ArrayList<Zwierze>
+    - opiekunowie: ArrayList<Opiekun>
+
+    + Wybieg(numer: String, wielkosc: Integer)
+    + dodaj_opiekuna(opiekun: Opiekun): void
+    + ile_zajetego_miejsca(): Integer
+    + czy_jest_ten_opiekun(id: String): boolean
+    + dieta_dla_wybiegu(): Dieta
+    + ile_wolnego_miejsca(): Integer
+    + dodaj_zwierze(zwierze: Zwierze): void
+    + getNumer(): String
+    + setNumer(numer: String): void
+    + getWielkosc(): Integer
+    + setWielkosc(wielkosc: Integer): void
+    + getZwierzeta(): ArrayList<Zwierze>
+    + setZwierzeta(zwierzeta: ArrayList<Zwierze>): void
+    + getOpiekunowie(): ArrayList<Opiekun>
+    + setOpiekunowie(opiekunowie: ArrayList<Opiekun>): void
+    + toString(): String
+}
+
+class Osoba {
+    - imie: String
+    - nazwisko: String
+    - id: String
+
+    + Osoba(imie: String, nazwisko: String, id: String)
+    + toString(): String
+    + equals(o: Object): boolean
+    + hashCode(): int
+}
+
+
+
+
+Zwierze - Dieta
+Zwierze - Gatunek
+
+Gatunek -- Dieta
+
+BazaDanych --o Gatunek
+BazaDanych -- Magazyn
+BazaDanych -- Zarzadca
+BazaDanych --o Zwierze
+BazaDanych --o Opiekun
+BazaDanych --o Wybieg
+BazaDanych --o Jedzenie
+
+Dieta --o Jedzenie
+
+Magazyn o-up- Jedzenie
+
+Wybieg o-- Zwierze
+Wybieg *- Opiekun
+
+ObslugaBazyDanych <|-- BazaDanych
+ObslugaMagazynu <|-- Magazyn
+DostepBazaDanych <|-- BazaDanych
+
+NoweId --> BazaDanych
+NoweId --> ObslugaBazyDanychKonsolowo
+
+
+
+@enduml

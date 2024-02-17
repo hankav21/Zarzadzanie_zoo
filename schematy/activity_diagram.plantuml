@@ -1,0 +1,24 @@
+@startuml
+(*) --> "Wybór konta zarzadcy"
+if "Nie mamy jeszcze tego gatunku" then
+->[tak] "Wybieramy dodanie gatunku"
+
+-> "Podaj nazwe gatunku"
+--> "Ustal diete dla gatunku wybierajac rodzaj jedzenia" as UstalDiete
+--> "ustal diete dla gatunku ustalajac ilosc jedzenia potrzebny na kilogram zwierzecia dla danej rasy"
+if "Czy to juz kompletna dieta dla gatunku" then
+->[nie] UstalDiete
+else
+-down->[tak] "Wpisz ile jeden osobnik potrzebuje miejsca"
+endif
+-down-> "Wybierz dodanie zwierzecia do systemu" as Dodanie
+else
+->[mamy juz ten gatunek w systemie] Dodanie
+endif
+--> "Wybierz gatunek z dostepnych"
+--> "Wpisz imie zwierzecia"
+--> "Podaj wage zwierzecia"
+--> "Wybierz wybieg w ktorym zostanie umieszczone zwierze"
+--> "Zwierze zostało dodane do systemu"
+--> (*)
+@enduml
