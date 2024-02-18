@@ -1,0 +1,47 @@
+@startuml
+participant Zarzadca
+participant BazaDanych
+participant Magazyn
+participant Dieta
+participant ListaZwierzat
+participant Dostawcy
+
+activate Zarzadca
+Zarzadca -> BazaDanych: uruchom_Panel_Zarzadcy
+activate BazaDanych
+Zarzadca -> BazaDanych: wybor_zamowienia_jedzenia
+BazaDanych -> Zarzadca: wymaganie podania liczby dni
+Zarzadca -> BazaDanych: podanie liczby dni na ktore chce zamowic
+BazaDanych -> Dieta:zuzycie_jedzenia_dla_x_dni_na_zoo(liczba_dni)
+activate Dieta
+Dieta -> BazaDanych: pobierz liste zwierzat
+BazaDanych -> ListaZwierzat: pobierz liste zwierzat
+activate ListaZwierzat
+return listaZwierzat
+BazaDanych -> Dieta: listaZwierzat
+Dieta -> Dieta: zsumujDietyWszystkichZwierzat(listaZwierzat)
+Dieta -> Dieta: zwroc_diete_zwiekszona_o_liczbe_dni(liczba_dni)
+return LaczneZuzycieJedzenia
+BazaDanych -> Dostawcy: zamow_jedzenie(LaczneZuzycieJedzenia)
+BazaDanych -> BazaDanych: dodanie zamowienia do systemu
+return komunikat o zlozeniu zamowienia
+
+activate Dostawcy
+Dostawcy -> Dostawcy: przygotowanie i dostawa zamowienia
+
+Dostawcy -> Zarzadca: dostarczenie Zamowienia
+Zarzadca -> Dostawcy: rozliczenie sie z zamowienia
+
+deactivate Dostawcy
+Zarzadca -> BazaDanych: wybor dodanie zamowienia do systemu
+activate BazaDanych
+BazaDanych -> Zarzadca: wymaganie okreslenia zamowienia z systemu
+Zarzadca -> BazaDanych: wybranie zamowienia
+BazaDanych -> BazaDanych: odczytanie i zdjecie zamowienia z sytemu
+BazaDanych -> Magazyn: dodaj_do_magazynu(jedzenie, ilosc)
+activate Magazyn
+Magazyn -> Magazyn: aktualizuj stan magazynu
+return potwierdzenie aktualizacji stanu magazynu o zamowienie
+return potwierdzenie aktualizacji stanu magazynu o zamowienie
+
+@enduml

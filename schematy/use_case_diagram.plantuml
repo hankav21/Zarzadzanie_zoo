@@ -1,0 +1,69 @@
+@startuml
+actor osoba
+actor zarzadca as z
+actor opiekun
+actor dostawcy as d
+
+z --up-|> osoba
+opiekun --|> osoba
+
+
+usecase "Zamow jedzenie dla calego zoo na wybrana liczbe dni" as z1
+usecase "Sprawdz stan calego magazynu (ilosc zmagazynowanego jedzenia)" as z2
+usecase "Sprawdz ilosc wybranego rodzaju jedzenia w magazynie" as z3
+usecase "Sprawdz zuzycie jedzenia na x dni dla calego zoo" as z4
+usecase "Przydziel opiekuna do wybiegu" as z5
+usecase "Wprowad nowego opiekuna do systemu" as z6
+usecase "Wprowadz nowe zwierze do systemu" as z7
+usecase "Wyswietl dostepne rodzaje jedzenia" as z8
+usecase "Dodaj nowy rodzaj jedzneia" as z9
+usecase "Dodaj nowy gatunek zwierzecia" as z10
+usecase "Dodaj nowy wybieg do systemu" as z11
+usecase "Sprawdz pojemnosc wybegu" as z12
+usecase "Sprawdz jakie sa zwierzeta na danym wybiegu" as z13
+usecase "Sprawdz jacy opiekunowie sa  przypisani do danego wybiegu" as z14
+usecase "Wyswietl wszytskich zatrudnionych opiekunow" as z15
+usecase "Sprawdz pojemnosc wszytkich wybiegow" as z16
+usecase "Zaktualizuj magazyn o nowa dostawe jedzenia" as z17
+
+
+usecase "Zarzadzaj wybiegami" as zw
+usecase "Wprowadz do systemu" as wds
+usecase "Zarzadzaj Magazynem" as zm
+
+z -- zw
+zw -- z5
+zw -- z12
+zw - z13
+zw --- z14
+zw -up- z16
+
+z ----- wds
+wds -- z10
+wds -- z11
+wds -- z9
+wds - z6
+wds -z7
+
+z -right- zm
+zm -up- z1
+zm -up-- z2
+zm -up- z3
+zm --- z4
+zm -- z8
+zm -right- z17
+
+z - z15
+
+z1 --> d :<<wymagane>>
+d --> z17: <<umozliwia dostarczajac jedzenie>>
+
+
+usecase "Wybierz swoje konto opiekuna" as wsko
+usecase "Sprawdzenie wybiegow do nakarmienia" as swdn
+usecase "Pobierz z magazynu wymagane jedzenie i nakarmij zwierzeta" as pzmwj
+
+opiekun -left- wsko
+wsko --> swdn : "<<pozwala>>"
+wsko --> pzmwj : "<<pozwala>>"
+@enduml

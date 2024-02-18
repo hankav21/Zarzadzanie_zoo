@@ -27,7 +27,7 @@ public class main {
                         System.out.println("1 = zamow_jedzenie dla calego zoo na x dni");
                         System.out.println("2 = sprawdz_stan_calego magazynu");
                         System.out.println("3 = sprawdz_stan_magazynu - konkretne jedzenie");
-                        System.out.println("4 = sprawdz_stan_magazynu - dla calego zoo");
+                        System.out.println("4 = sprawdz zuzycie jedzenia na x dni dla calego zoo ");
                         System.out.println("5 = przydznaj_opiekuna do wybiegu");
                         System.out.println("6 = wprowadz_opiekuna_do_systemu()");
                         System.out.println("7 = wprowadz_zwierze_do_systemu()");
